@@ -1,0 +1,35 @@
+Boa noite, 
+
+Para min não ficou muito claro no enunciado como os senhores iriam testar a aplicação.
+
+Logo, imaginei 2 cenários: 
+
+1 - Acesso direto pelo Navegador
+
+    - Teria que ser um cadastro utilizando o verbo [GET] pois é o comportamento padrão de um navegador web.
+    - Fiquei em duvida se eu deveria fazer um form com 1 TextField + Button cadastrar.
+    - Prosseguindo sem o 'frontend', então teriamos: 
+        - http://localhost:8080/people -> Lista as pessoas cadastradas na base
+        - http://localhost:8080/people?name=boris -> Cadastra uma pessoa e devolve a lista completa
+
+
+2 - Acesso via postman
+
+    - Caso esse seja o método de teste, eu deveria ter feito uma rota do tipo [POST] para refletir o cadastro.
+    - Realmente aqui não precisa de um form.
+    - Mas não seria a simulação de 'usuário comum'.
+
+Essas foram minhas dúvidas, no entanto, resolvi seguir em frente para realizar o comportamento pedido no desafio.
+
+- Fiz pela abordagem conforme descrito no 1º cenário logo acima.
+- Subindo os containers: docker-compose up -d
+- Rota: 
+    - http://localhost:8080/people -> Lista as pessoas cadastradas na base
+    - http://localhost:8080/people?name=boris -> Cadastra uma pessoa e devolve a lista completa
+
+
+Obs: Estou a disposição para corrigir minha solução caso tenham algum comentário/sugestão sobre como eu deveria ter 
+     feito/interpretado o desafio. 
+
+
+Desde já, obrigado.

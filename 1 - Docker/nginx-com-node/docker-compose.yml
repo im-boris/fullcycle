@@ -1,0 +1,51 @@
+networks:
+  desafio-nginx:
+    name: desafio-nginx
+    driver: bridge
+    
+services: 
+
+  nginx: 
+    build: 
+      context: ./nginx
+    image: nginx-proxy-reverso:latest
+    container_name: nginx-proxy-reverso
+    env_file:
+      - .env
+    networks:
+      - desafio-nginx
+    ports: 
+      - "8080:80"
+    depends_on: 
+      - nodeapp  
+
+  nodeapp: 
+    build: 
+      context: ./node
+    image: nodeapp
+    container_name: node_app
+    entrypoint: [ "sh", "-c", "dockerize -wait tcp://database:3306 -timeout 20s && exec \"$@\"", "--"]
+    command: ["node", "app.js"]
+    tty: true
+    env_file:
+      - .env
+    expose:
+      - ${NODE_APP_PORT}
+    networks:
+      - desafio-nginx
+    depends_on: 
+      - database  
+
+  database: 
+    image: mysql:5.7
+    container_name: mysql
+    command: --innodb-use-native-aio=0
+    restart: always
+    tty: true
+    environment:
+      - MYSQL_DATABASE=${DATABASE_NAME}
+      - MYSQL_ROOT_PASSWORD=${DATABASE_ROOT_PASSWORD}
+    volumes: 
+      - ./mysql:/var/lib/mysql
+    networks:
+      - desafio-nginx
