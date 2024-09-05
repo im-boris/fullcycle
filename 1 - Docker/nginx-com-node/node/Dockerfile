@@ -9,8 +9,8 @@ RUN apk update --no-cache \
 
 WORKDIR /app/fullcycle/mateus-hertel/desafio-nginx-com-node
 
-COPY ./package.json .
+# COPY ./package.json .
 
-RUN npm install
+# RUN npm install
 
-COPY ./app.js .
+# COPY ./app.js .

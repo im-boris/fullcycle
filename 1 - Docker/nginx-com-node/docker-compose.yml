@@ -24,11 +24,14 @@ services:
       context: ./node
     image: nodeapp
     container_name: node_app
-    entrypoint: [ "sh", "-c", "dockerize -wait tcp://database:3306 -timeout 20s && exec \"$@\"", "--"]
-    command: ["node", "app.js"]
+    entrypoint: [ "sh", "-c", "dockerize -wait tcp://database:3306 -timeout 20s && npm install && exec \"$@\"", "--"]
+    command: ["npx","nodemon","app.js"]
     tty: true
     env_file:
       - .env
+    volumes: 
+      - ./node:/app/fullcycle/mateus-hertel/desafio-nginx-com-node
+      # - /app/fullcycle/mateus-hertel/desafio-nginx-com-node/node_modules
     expose:
       - ${NODE_APP_PORT}
     networks:
